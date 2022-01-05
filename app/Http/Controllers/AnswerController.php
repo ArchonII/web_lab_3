@@ -29,28 +29,48 @@ class AnswerController extends Controller
         $arr[2][1][1]="text 2 answer on quest 3 abc";
         $arr[2][2][0]="author 3";
         $arr[2][2][1]="text 3 answer on quest 3 def";
-
+/*
         if ($id > 2) {
             throw new NotFoundHttpException('вопрос не найден');
         }
 
-        return $arr[$id];   
+        return $arr[$id];   */
+
+        $answer =  Answer::query()
+                    ->where(['id'=> $id])
+                    ->get();
+        if ($answer === null) {
+            throw new NotFoundHttpException('вопрос не найден');
+        }
+
     }   
 
     public function add(Request $request)
     {
-        $id = $request->get('id_q');
+        $id_q = $request->get('id_q');
         $text = $request->get('text');
-        $name_at = $request->get('name_at');
-        if ($id === null) {
+        $id_at = $request->get('id_at');
+        if ($id_q === null) {
             throw new BadRequestHttpException('не указан id вопроса');
         }
         if ($text === null) {
-            throw new BadRequestHttpException('описание пустое');
+            throw new BadRequestHttpException('текст ответа пуст');
         }
-        if ($name_at === null) {
+        if ($id_at === null) {
             throw new BadRequestHttpException('имя автора не указано');
         }
-        return "successfully"; 
+
+        $answer = new Answer();
+        $answer->id_q = $id_q;
+        $answer->text = $text;
+        $answer->id_at = $id_at;
+        if ($answer->save())
+        {
+            return "successfully";
+        }
+        else
+        {
+            return "failed";
+        } 
     }
 }

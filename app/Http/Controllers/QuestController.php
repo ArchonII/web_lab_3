@@ -19,15 +19,12 @@ class QuestController extends Controller
         $arr[2][0]="quest 3";
         $arr[2][1]="text descritpion about quest 3 ";
 
-        return $arr; 
-        //4 lab 
-
-
+        //return $arr; 
+        //4 lab        
         
-        /*
         return Quest::query()
                 ->limit(30)
-                ->get();*/
+                ->get();
  
     }
 
@@ -48,17 +45,16 @@ class QuestController extends Controller
     $arr[2][0]="quest 3";
     $arr[2][1]="text descritpion about quest 3 ";
 
-
+/*
     if ($id > 2) {
         throw new NotFoundHttpException('вопрос не найден');
     }
     
     return $arr[$id];
-
-
+*/
     //4 lab
     $quest = Quest::query()
-            ->limit(30)
+            ->where(['id'=> $id])
             ->first();
 
     if ($quest === null) {
@@ -76,17 +72,28 @@ class QuestController extends Controller
     {
         $name = $request->get('name');
         $desc = $request->get('desc');
-        $name_at = $request->get('name_at');
+        $id_at = $request->get('id_at');
         if ($name === null) {
             throw new BadRequestHttpException('в имени пусто');
         }
         if ($desc === null) {
             throw new BadRequestHttpException('описание пустое');
         }
-        if ($name_at === null) {
+        if ($id_at === null) {
             throw new BadRequestHttpException('имя автора не указано');
         }
-        return "successfully";
+        $quest = new Quest();
+        $quest->name = $name;
+        $quest->desc = $desc;
+        $quest->id_at = $id_at;
+        if ($quest->save())
+        {
+            return "successfully";
+        }
+        else
+        {
+            return "failed";
+        }        
 
     }
 }
