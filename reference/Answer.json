@@ -26,11 +26,14 @@
         "tags": [],
         "responses": {
           "200": {
-            "description": "User Found",
+            "description": "Answer Found",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
                 },
                 "examples": {
                   "Get User Alice Smith": {
@@ -49,7 +52,7 @@
             }
           },
           "404": {
-            "description": "User Not Found"
+            "description": "Answers Not Found"
           }
         },
         "operationId": "get-answers-Id",
