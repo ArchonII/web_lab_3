@@ -84,17 +84,26 @@ class QuestController extends Controller
         if ($name_at === null) {
             throw new BadRequestHttpException('имя автора не указано');
         }
+
+
         if(Author::query()->where(['name'=> $name_at])->first() === null)
         {
             $author = new Author();
             $author->name = $name_at;
             $author->save();
         }
+
         $id_at = Author::query()->where(['name'=> $name_at])->first(['id']);
+
+        if ($id_at === null)
+        {
+            return "search author failed";
+        }
         $quest = new Quest();
         $quest->name = $name;
         $quest->desc = $desc;
-        $quest->id_at = $id_at;
+        $quest->id_at = $id_at->id;
+
         if ($quest->save())
         {
             return "successfully";

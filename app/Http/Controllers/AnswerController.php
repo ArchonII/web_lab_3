@@ -38,11 +38,12 @@ class AnswerController extends Controller
         return $arr[$id];   */
 
         $answer =  Answer::query()
-                    ->where(['id'=> $id])
+                    ->where(['id_qt'=> $id])
                     ->get();
         if ($answer === null) {
             throw new NotFoundHttpException('вопрос не найден');
         }
+        return $answer;
 
     }   
 
@@ -66,11 +67,11 @@ class AnswerController extends Controller
             $author->name = $name_at;
             $author->save();
         }
-        $id_at = Author::query()->where(['name'=> $name_at])->first(['id']);
+        $id_at = Author::query()->where(['name'=> $name_at])->first();
         $answer = new Answer();
-        $answer->id_q = $id_q;
+        $answer->id_qt = $id_q;
         $answer->text = $text;
-        $answer->id_at = $id_at;
+        $answer->id_at = $id_at->id;
         if ($answer->save())
         {
             return "successfully";
