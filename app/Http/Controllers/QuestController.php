@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 //use Illuminate\Routing\Controller as BaseController;
+
+use App\Models\Author;
 use Illuminate\Http\Request;
 use App\Models\Quest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -72,16 +74,23 @@ class QuestController extends Controller
     {
         $name = $request->get('name');
         $desc = $request->get('desc');
-        $id_at = $request->get('id_at');
+        $name_at = $request->get('name_at');
         if ($name === null) {
             throw new BadRequestHttpException('в имени пусто');
         }
         if ($desc === null) {
             throw new BadRequestHttpException('описание пустое');
         }
-        if ($id_at === null) {
+        if ($name_at === null) {
             throw new BadRequestHttpException('имя автора не указано');
         }
+        if(Author::query()->where(['name'=> $name_at])->first() === null)
+        {
+            $author = new Author();
+            $author->name = $name_at;
+            $author->save();
+        }
+        $id_at = Author::query()->where(['name'=> $name_at])->first(['id']);
         $quest = new Quest();
         $quest->name = $name;
         $quest->desc = $desc;
