@@ -22,7 +22,7 @@
         }
       ],
       "get": {
-        "summary": "Get User Info by User ID",
+        "summary": "Get Answer list by id quest",
         "tags": [],
         "responses": {
           "200": {
@@ -58,7 +58,7 @@
     },
     "/api/answers/a/": {
       "post": {
-        "summary": "Create New User",
+        "summary": "Create New Answer",
         "operationId": "post-user",
         "responses": {
           "200": {
