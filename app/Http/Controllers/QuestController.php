@@ -13,17 +13,7 @@ class QuestController extends Controller
 {
 
     public function list()
-    {
-        $arr[0][0]="quest 1";
-        $arr[0][1]="text descritpion about quest 1 ";
-        $arr[1][0]="quest 2";
-        $arr[1][1]="text descritpion about quest 2 ";
-        $arr[2][0]="quest 3";
-        $arr[2][1]="text descritpion about quest 3 ";
-
-        //return $arr; 
-        //4 lab        
-        
+    {       
         return Quest::query()
                 ->limit(30)
                 ->get();
@@ -31,30 +21,7 @@ class QuestController extends Controller
     }
 
     public function info($id)
-    {/*
-        $product = Product::query()
-            ->where(['id' => $id])
-            ->first();
-
-        if ($product === null) {
-            throw new NotFoundHttpException('Товар не найден');
-        }
-*/
-    $arr[0][0]="quest 1";
-    $arr[0][1]="text descritpion about quest 1 ";
-    $arr[1][0]="quest 2";
-    $arr[1][1]="text descritpion about quest 2 ";
-    $arr[2][0]="quest 3";
-    $arr[2][1]="text descritpion about quest 3 ";
-
-/*
-    if ($id > 2) {
-        throw new NotFoundHttpException('вопрос не найден');
-    }
-    
-    return $arr[$id];
-*/
-    //4 lab
+    {
     $quest = Quest::query()
             ->where(['id'=> $id])
             ->first();
@@ -62,12 +29,8 @@ class QuestController extends Controller
     if ($quest === null) {
         throw new NotFoundHttpException('вопрос не найден');
     }
-
         return $quest;
-        //return [$arr[$id]];
-        /*return Quest::query()
-                ->whhere(['id'=> $id])
-                ->first(); */
+
     }
 
     public function add(Request $request)
