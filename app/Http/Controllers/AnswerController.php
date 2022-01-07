@@ -24,7 +24,7 @@ class AnswerController extends Controller
 
     public function add(Request $request)
     {
-        $id_q = $request->get('id_q');
+        $id_q = $request->get('id_qt');
         $text = $request->get('text');
         $name_at = $request->get('name_at');
         if ($id_q === null) {
