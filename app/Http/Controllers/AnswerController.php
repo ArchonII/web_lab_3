@@ -18,6 +18,7 @@ class AnswerController extends Controller
         if ($answer === null) {
             throw new NotFoundHttpException('вопрос не найден');
         }
+        return $answer;
 
     }   
 
