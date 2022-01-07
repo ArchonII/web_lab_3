@@ -42,11 +42,11 @@ class AnswerController extends Controller
             $author->name = $name_at;
             $author->save();
         }
-        $id_at = Author::query()->where(['name'=> $name_at])->first(['id'])->id;
+        $id_at = Author::query()->where(['name'=> $name_at])->first(['id']);
         $answer = new Answer();
         $answer->id_qt = $id_qt;
         $answer->text = $text;
-        $answer->id_at = $id_at;
+        $answer->id_at = $id_at->id;
         if ($answer->save())
         {
             return "successfully";
