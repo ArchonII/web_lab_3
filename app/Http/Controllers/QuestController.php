@@ -56,7 +56,7 @@ class QuestController extends Controller
         $quest = new Quest();
         $quest->name = $name;
         $quest->desc = $desc;
-        $quest->id_at = $id_at;
+        $quest->id_at = $id_at->id;
         if ($quest->save())
         {
             return "successfully";
