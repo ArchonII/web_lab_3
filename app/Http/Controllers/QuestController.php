@@ -23,7 +23,8 @@ class QuestController extends Controller
     public function info($id)
     {
     $quest = Quest::query()
-            ->where(['id'=> $id])
+            ->join('Authors', 'Quests.id_at', '=', 'Authors.id')
+            ->where(['Quests.id'=> $id])
             ->first();
 
     if ($quest === null) {

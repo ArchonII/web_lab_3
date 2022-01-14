@@ -13,7 +13,8 @@ class AnswerController extends Controller
     public function list($id)
     {
         $answer =  Answer::query()
-                    ->where(['id_qt'=> $id])
+                    ->join('Authors', 'Answers.id_at', '=', 'Authors.id')
+                    ->where(['Answers.id_qt'=> $id])
                     ->get();
         if ($answer === null) {
             throw new NotFoundHttpException('вопрос не найден');
@@ -36,13 +37,13 @@ class AnswerController extends Controller
         if ($name_at === null) {
             throw new BadRequestHttpException('имя автора не указано');
         }
-        if(Author::query()->where(['name'=> $name_at])->first() === null)
+        if(Author::query()->where(['name_at'=> $name_at])->first() === null)
         {
             $author = new Author();
-            $author->name = $name_at;
+            $author->name_at = $name_at;
             $author->save();
         }
-        $id_at = Author::query()->where(['name'=> $name_at])->first(['id'])->id;
+        $id_at = Author::query()->where(['name_at'=> $name_at])->first(['id'])->id;
         $answer = new Answer();
         $answer->id_qt = $id_qt;
         $answer->text = $text;

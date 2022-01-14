@@ -25,10 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('quests')->group(function () {
     Route::get('/l/', [QuestController::class, 'list']);
     Route::get('/i/{id}', [QuestController::class, 'info']);
-    Route::post('/a/', [QuestController::class, 'add']);
+    Route::post('/a', [QuestController::class, 'add']);
 });
 
 Route::prefix('answers')->group(function () {
     Route::get('/l/{id}', [AnswerController::class, 'list']);
-    Route::post('/a/', [AnswerController::class, 'add']);
+    Route::post('/a', [AnswerController::class, 'add']);
 });

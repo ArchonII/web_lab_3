@@ -8,12 +8,12 @@ class Author extends Model
 {
     /**
      * @property int $id
-     * @property string $name
+     * @property string $name_at
      */
     public $table = "Authors";
     public $timestamps = false;
     protected $fillable = [
-        'name'
+        'name_at'
     ];    
 
 }
